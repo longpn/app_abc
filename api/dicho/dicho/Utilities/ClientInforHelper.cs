@@ -81,82 +81,6 @@ namespace dicho.Utilities
         }
 
 
-        //public static bool IsIpAddressFromVN(HttpRequestBase request)
-        //{
-        //    bool result = false;
-
-        //    string ipAddress = GetClientIPAddress(request);
-        //    string url = string.Format("http://ipinfo.io/{0}/geo", ipAddress);
-
-        //    HttpClient client = new HttpClient();
-        //    HttpResponseMessage response = client.GetAsync(url).Result;
-
-        //    string json = response.Content.ReadAsStringAsync().Result;
-
-        //    var obj = JsonConvert.DeserializeObject<dynamic>(json);
-
-        //    if (obj != null)
-        //    {
-        //        if (!string.IsNullOrEmpty(obj.country.Value))
-        //        {
-        //            if (obj.country.Value.ToString() == "VN")
-        //            {
-        //                result = true;
-        //            }
-        //        }
-        //    }
-
-        //    return result;
-        //}
-
-        //public static Enums.CountryCode GetCountryCode(HttpRequestBase request)
-        //{
-        //    Enums.CountryCode countryCode = Enums.CountryCode.Unknow;
-        //    string ipAddress = GetClientIPAddress(request);
-        //    string url = string.Format("http://ipinfo.io/{0}/geo", ipAddress);
-
-        //    HttpClient client = new HttpClient();
-        //    HttpResponseMessage response = client.GetAsync(url).Result;
-        //    string json = response.Content.ReadAsStringAsync().Result;
-
-        //    var obj = JsonConvert.DeserializeObject<dynamic>(json);
-
-        //    if (obj != null && obj.country !=null )
-        //    {
-        //        string code =obj.country.Value;
-        //        switch (code)
-        //        {
-        //            case "VN":
-        //                {
-        //                    countryCode = Enums.CountryCode.VN;
-        //                    break;
-        //                }
-        //            case "US":
-        //                {
-        //                    countryCode = Enums.CountryCode.US;
-        //                    break;
-        //                }
-        //            case "CA":
-        //                {
-        //                    countryCode = Enums.CountryCode.CA;
-        //                    break;
-        //                }
-        //            default:
-        //                {
-        //                    countryCode = Enums.CountryCode.Unknow;
-        //                    break;
-        //                }
-        //        }
-
-
-        //    }
-
-        //    return countryCode;
-
-        //}
-
-
-
 
         /// <summary>
         /// Format AppID(google) or UID(apple)
@@ -194,7 +118,7 @@ namespace dicho.Utilities
         public static string GetVersion(string userAgent)
         {
             string version = "Unknown";
-            if (!string.IsNullOrEmpty(userAgent) && userAgent.Contains("VoiceMobile") && userAgent.Contains("/"))
+            if (!string.IsNullOrEmpty(userAgent) && userAgent.Contains("DichoMobile") && userAgent.Contains("/"))
             {
                 string deviceInfor = userAgent.Split('/')[1];
                 if (deviceInfor.Contains("("))
@@ -213,7 +137,7 @@ namespace dicho.Utilities
         public static string GetPlatform(string userAgent)
         {
             string platform = "Unknown";
-            if (!string.IsNullOrEmpty(userAgent) && userAgent.Contains("VoiceMobile") && userAgent.Contains("("))
+            if (!string.IsNullOrEmpty(userAgent) && userAgent.Contains("DichoMobile") && userAgent.Contains("("))
             {
                 string deviceInfor = userAgent.Split('(')[1];
                 if (deviceInfor.Contains(";"))

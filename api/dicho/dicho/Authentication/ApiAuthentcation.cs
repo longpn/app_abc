@@ -158,7 +158,7 @@ namespace dicho.Authentication
             bool result = false;
             if (request.Headers.Authorization != null)
             {
-                if (request.Headers.Authorization.Scheme.ToLower() == "xb")
+                if (request.Headers.Authorization.Scheme.ToLower() == "dc")
                 {
                     if (request.Headers.Authorization.Parameter.Contains(":"))
                     {

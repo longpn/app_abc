@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dichoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="proc_ApiLog_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="bigint" Mode="In" />
+          <Parameter Name="ApiName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ApiVersion" Type="nvarchar" Mode="In" />
+          <Parameter Name="IPAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="Platform" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserAgent" Type="nvarchar" Mode="In" />
+          <Parameter Name="ClientAppVersion" Type="nvarchar" Mode="In" />
+          <Parameter Name="HttpStatusCode" Type="int" Mode="In" />
+          <Parameter Name="ContentLength" Type="int" Mode="In" />
+          <Parameter Name="TakenTime" Type="int" Mode="In" />
+        </Function>
+        <Function Name="proc_ClientAppInfor_GetAllToken" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="proc_ClientAppInfor_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="bigint" Mode="In" />
+          <Parameter Name="DeviceFirmwareID" Type="nvarchar" Mode="In" />
+          <Parameter Name="ClientAppID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Token" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_ClientError_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="bigint" Mode="In" />
+          <Parameter Name="ErrorMessage" Type="nvarchar" Mode="In" />
+          <Parameter Name="Platform" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_ServerError_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="bigint" Mode="In" />
+          <Parameter Name="ApiName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Uri" Type="nvarchar" Mode="In" />
+          <Parameter Name="Platform" Type="nvarchar" Mode="In" />
+          <Parameter Name="ErrorMessage" Type="nvarchar" Mode="In" />
+          <Parameter Name="StatusCode" Type="int" Mode="In" />
+          <Parameter Name="ClientAppVersion" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="dichoModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dichoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DichoDataContext" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="proc_ClientAppInfor_GetAllToken" ReturnType="Collection(dichoModel.proc_ClientAppInfor_GetAllToken_Result)" />
+          <FunctionImport Name="proc_ClientAppInfor_Insert" ReturnType="Collection(String)">
+            <Parameter Name="UserID" Mode="In" Type="Int64" />
+            <Parameter Name="DeviceFirmwareID" Mode="In" Type="String" />
+            <Parameter Name="ClientAppID" Mode="In" Type="String" />
+            <Parameter Name="Token" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_ApiLog_Insert">
+            <Parameter Name="UserID" Mode="In" Type="Int64" />
+            <Parameter Name="ApiName" Mode="In" Type="String" />
+            <Parameter Name="ApiVersion" Mode="In" Type="String" />
+            <Parameter Name="IPAddress" Mode="In" Type="String" />
+            <Parameter Name="Platform" Mode="In" Type="String" />
+            <Parameter Name="UserAgent" Mode="In" Type="String" />
+            <Parameter Name="ClientAppVersion" Mode="In" Type="String" />
+            <Parameter Name="HttpStatusCode" Mode="In" Type="Int32" />
+            <Parameter Name="ContentLength" Mode="In" Type="Int32" />
+            <Parameter Name="TakenTime" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="proc_ClientError_Insert" ReturnType="Collection(String)">
+            <Parameter Name="UserID" Mode="In" Type="Int64" />
+            <Parameter Name="ErrorMessage" Mode="In" Type="String" />
+            <Parameter Name="Platform" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_ServerError_Insert">
+            <Parameter Name="UserID" Mode="In" Type="Int64" />
+            <Parameter Name="ApiName" Mode="In" Type="String" />
+            <Parameter Name="Uri" Mode="In" Type="String" />
+            <Parameter Name="Platform" Mode="In" Type="String" />
+            <Parameter Name="ErrorMessage" Mode="In" Type="String" />
+            <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+            <Parameter Name="ClientAppVersion" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="proc_ClientAppInfor_GetAllToken_Result">
+          <Property Type="Int64" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="client_app_id" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="token" Nullable="false" MaxLength="64" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dichoModelStoreContainer" CdmEntityContainer="DichoDataContext" >
+          <FunctionImportMapping FunctionImportName="proc_ClientAppInfor_GetAllToken" FunctionName="dichoModel.Store.proc_ClientAppInfor_GetAllToken">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dichoModel.proc_ClientAppInfor_GetAllToken_Result">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="client_app_id" ColumnName="client_app_id" />
+                <ScalarProperty Name="token" ColumnName="token" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_ClientAppInfor_Insert" FunctionName="dichoModel.Store.proc_ClientAppInfor_Insert" />
+          <FunctionImportMapping FunctionImportName="proc_ApiLog_Insert" FunctionName="dichoModel.Store.proc_ApiLog_Insert" />
+          <FunctionImportMapping FunctionImportName="proc_ClientError_Insert" FunctionName="dichoModel.Store.proc_ClientError_Insert" />
+          <FunctionImportMapping FunctionImportName="proc_ServerError_Insert" FunctionName="dichoModel.Store.proc_ServerError_Insert" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

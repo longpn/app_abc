@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>XperiCode.SimpleCache</id>
+    <version>0.1.1</version>
+    <title>SimpleCache</title>
+    <authors>Marcel Wijnands</authors>
+    <owners>Marcel Wijnands</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://simplecache.xpericode.com/</projectUrl>
+    <iconUrl>https://avatars3.githubusercontent.com/u/8470969?v=3&amp;s=48</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extension methods for System.Runtime.Caching.ObjectCache / MemoryCache with locking mechanism.</description>
+    <summary />
+    <copyright>Copyright © Marcel Wijnands 2014</copyright>
+    <tags>Cache ObjectCache MemoryCache</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Runtime.Caching" targetFramework=".NETFramework4.5" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

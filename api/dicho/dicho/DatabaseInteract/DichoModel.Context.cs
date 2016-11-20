@@ -280,5 +280,35 @@ namespace dicho.DatabaseInteract
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("proc_User_UpdateProfile", userIDParameter, fullNameParameter, addressParameter, avatarParameter, emailAddressParameter, genderParameter, dOBParameter, phoneNumberParameter, zaloIdParameter, countryIdParameter, cityIdParameter, discIdParameter, numberMemberParameter, numberChildParameter, isVeganParameter);
         }
+    
+        public virtual ObjectResult<proc_User_RegisterWithEmailAddress_Result> proc_User_RegisterWithEmailAddress(string userName, string password, string fullName)
+        {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var fullNameParameter = fullName != null ?
+                new ObjectParameter("FullName", fullName) :
+                new ObjectParameter("FullName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_User_RegisterWithEmailAddress_Result>("proc_User_RegisterWithEmailAddress", userNameParameter, passwordParameter, fullNameParameter);
+        }
+    
+        public virtual ObjectResult<proc_User_SignInWithEmailAddress_Result> proc_User_SignInWithEmailAddress(string userName, string password)
+        {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_User_SignInWithEmailAddress_Result>("proc_User_SignInWithEmailAddress", userNameParameter, passwordParameter);
+        }
     }
 }

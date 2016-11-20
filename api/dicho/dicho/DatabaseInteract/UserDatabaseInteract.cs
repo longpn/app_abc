@@ -13,6 +13,122 @@ namespace dicho.DatabaseInteract
     public class UserDatabaseInteract
     {
         /// <summary>
+        /// Register an new account with the email address
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static OutputDataModel RegisterWithEmailAddress(RegisterWithEmailAddressInputData value)
+        {
+            OutputDataModel outputData = new OutputDataModel();
+            string password = EncodeHelper.HashMD5Password(value.password);
+            using (DichoDataContext db = new DichoDataContext())
+            {
+                var item = db.proc_User_RegisterWithEmailAddress(value.email, password,value.fullname).FirstOrDefault();
+                if (item != null)
+                {
+                    switch (item.Status)
+                    {
+                        case "NeedVerification":
+                            {
+                                outputData.StatusCode = (int)Enums.StatusCode.NeedVerificationUserAccount;
+                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NeedVerificationUserAccount);
+
+                               // EmailHelper.SendSignUpEmail(item.VerificationCode, value.EmailAddress, value.LanguageCode);
+                                break;
+                            }
+                        case "Existed":
+                            {
+                                outputData.StatusCode = (int)Enums.StatusCode.AlreadyUserAccount;
+                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.AlreadyUserAccount);
+                                break;
+                            }
+                        default:
+                            {
+                                outputData.StatusCode = (int)Enums.StatusCode.FaliedRegisterUserAccount;
+                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FaliedRegisterUserAccount);
+                                break;
+                            }
+                    }
+                }
+                else
+                {
+                    outputData.StatusCode = (int)Enums.StatusCode.FaliedRegisterUserAccount;
+                    outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FaliedRegisterUserAccount);
+                }
+            }
+            return outputData;
+        }
+
+        /// <summary>
+        /// Sign in with the email address
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static OutputDataModel SignInWithEmailAddress(SignInWithEmailAddressInputData value)
+        {
+            OutputDataModel outputData = new OutputDataModel();
+            string password = EncodeHelper.HashMD5Password(value.password);
+
+            using (DichoDataContext db = new DichoDataContext())
+            {
+                var item = db.proc_User_SignInWithEmailAddress(value.email, password).FirstOrDefault();
+                if (item != null)
+                {
+                    switch (item.Status)
+                    {
+                        case "Successful":
+                            {
+                                outputData.StatusCode = (int)Enums.StatusCode.Successful;
+                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
+
+                                SignInWithEmailAddressOutputData signIn = new SignInWithEmailAddressOutputData();
+                                signIn.user_id = item.UserID;
+                                signIn.username = value.email;
+                                signIn.fullname = item.FullName;
+                                signIn.role = item.Role;
+                                signIn.avatar = item.Avatar;
+                                //signIn.AvatarUrl = AzureStorageHelper.GetAvatarUrl(signIn.UserID, item.Avatar);
+                                signIn.client_app_id = TokenManager.GenerateClientAppID();
+                                signIn.access_token = TokenManager.GenerateAccessToken(signIn.user_id, value.device_firmware_id, signIn.client_app_id);
+
+                                outputData.Data = signIn;
+                                break;
+                            }
+                        case "NeedVerification":
+                            {
+                                outputData.StatusCode = (int)Enums.StatusCode.NeedVerificationUserAccount;
+                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NeedVerificationUserAccount);
+
+                                //EmailHelper.SendSignUpEmail(item.VerificationCode, value.EmailAddress, value.LanguageCode);
+                                break;
+                            }
+                        case "IncorrectPassword":
+                            {
+                                outputData.StatusCode = (int)Enums.StatusCode.IncorrectPassword;
+                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.IncorrectPassword);
+                                break;
+                            }
+                        case "NotExisted":
+                            {
+                                outputData.StatusCode = (int)Enums.StatusCode.NotExistedAccount;
+                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
+                                break;
+                            }
+                        default:
+                            goto case "NotExisted";
+                    }
+                }
+                else
+                {
+                    outputData.StatusCode = (int)Enums.StatusCode.NotExistedAccount;
+                    outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
+                }
+            }
+
+            return outputData;
+        }
+
+        /// <summary>
         /// Sign in with facebook account
         /// </summary>
         /// <param name="value"></param>

@@ -74,7 +74,7 @@ namespace dicho.Models.Security
                             }
                         default:
                             {
-                                //isSupportedVersion = true;
+                                isSupportedVersion = true;
                                 break;
                             }
                     }
@@ -107,7 +107,7 @@ namespace dicho.Models.Security
                         case "verifyforgotpassword":
                         case "registerwithbusiness":
                         case "category":
-                        case "verifyemailaddress":
+                        case "users":
                             {
                                 result = true;
                                 break;

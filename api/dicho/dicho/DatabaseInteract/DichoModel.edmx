@@ -41,6 +41,11 @@
         <Function Name="proc_User_Profile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="proc_User_RegisterWithEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="FullName" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="proc_User_RegisterWithSocialNetworkAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SocialID" Type="nvarchar" Mode="In" />
           <Parameter Name="SocialToken" Type="nvarchar" Mode="In" />
@@ -52,6 +57,10 @@
           <Parameter Name="AvatarUrl" Type="nvarchar" Mode="In" />
           <Parameter Name="DeviceFirmwareID" Type="nvarchar" Mode="In" />
           <Parameter Name="AppID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_User_SignInWithEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="proc_User_SignInWithFacebookAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FacebookID" Type="nvarchar" Mode="In" />
@@ -114,7 +123,7 @@
             <Parameter Name="ClientAppVersion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="proc_User_Profile" ReturnType="Collection(dichoModel.proc_User_Profile_Result)">
-            <Parameter Name="UserID" Mode="In" Type="Int64" />
+          <Parameter Name="UserID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="proc_User_RegisterWithSocialNetworkAccount" ReturnType="Collection(dichoModel.proc_User_RegisterWithSocialNetworkAccount_Result)">
             <Parameter Name="SocialID" Mode="In" Type="String" />
@@ -148,6 +157,15 @@
             <Parameter Name="NumberMember" Mode="In" Type="Int32" />
             <Parameter Name="NumberChild" Mode="In" Type="Int32" />
             <Parameter Name="IsVegan" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="proc_User_RegisterWithEmailAddress" ReturnType="Collection(dichoModel.proc_User_RegisterWithEmailAddress_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="FullName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_User_SignInWithEmailAddress" ReturnType="Collection(dichoModel.proc_User_SignInWithEmailAddress_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="proc_ClientAppInfor_GetAllToken_Result">
@@ -196,6 +214,19 @@
           <Property Type="String" Name="username" Nullable="false" MaxLength="150" />
           <Property Type="String" Name="role" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="avatar" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="proc_User_RegisterWithEmailAddress_Result">
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="20" />
+          <Property Type="Int64" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="VerificationCode" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="proc_User_SignInWithEmailAddress_Result">
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="20" />
+          <Property Type="Int64" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Role" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Avatar" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="VerificationCode" Nullable="false" MaxLength="10" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -271,6 +302,27 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="proc_User_UpdateProfile" FunctionName="dichoModel.Store.proc_User_UpdateProfile" />
+          <FunctionImportMapping FunctionImportName="proc_User_RegisterWithEmailAddress" FunctionName="dichoModel.Store.proc_User_RegisterWithEmailAddress">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dichoModel.proc_User_RegisterWithEmailAddress_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_User_SignInWithEmailAddress" FunctionName="dichoModel.Store.proc_User_SignInWithEmailAddress">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dichoModel.proc_User_SignInWithEmailAddress_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="VerificationCode" ColumnName="VerificationCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

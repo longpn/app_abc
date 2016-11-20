@@ -38,6 +38,42 @@
           <Parameter Name="StatusCode" Type="int" Mode="In" />
           <Parameter Name="ClientAppVersion" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="proc_User_Profile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="proc_User_RegisterWithSocialNetworkAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SocialID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SocialToken" Type="nvarchar" Mode="In" />
+          <Parameter Name="SocialEmailAccount" Type="nvarchar" Mode="In" />
+          <Parameter Name="SocialFirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="SocialLastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="SocialType" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="nvarchar" Mode="In" />
+          <Parameter Name="AvatarUrl" Type="nvarchar" Mode="In" />
+          <Parameter Name="DeviceFirmwareID" Type="nvarchar" Mode="In" />
+          <Parameter Name="AppID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_User_SignInWithFacebookAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FacebookID" Type="nvarchar" Mode="In" />
+          <Parameter Name="FacebookToken" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="proc_User_UpdateProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="bigint" Mode="In" />
+          <Parameter Name="FullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+          <Parameter Name="Avatar" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOB" Type="datetime" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="ZaloId" Type="nvarchar" Mode="In" />
+          <Parameter Name="CountryId" Type="int" Mode="In" />
+          <Parameter Name="CityId" Type="int" Mode="In" />
+          <Parameter Name="DiscId" Type="int" Mode="In" />
+          <Parameter Name="NumberMember" Type="int" Mode="In" />
+          <Parameter Name="NumberChild" Type="int" Mode="In" />
+          <Parameter Name="IsVegan" Type="bit" Mode="In" />
+        </Function>
         <EntityContainer Name="dichoModelStoreContainer" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -77,11 +113,89 @@
             <Parameter Name="StatusCode" Mode="In" Type="Int32" />
             <Parameter Name="ClientAppVersion" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="proc_User_Profile" ReturnType="Collection(dichoModel.proc_User_Profile_Result)">
+            <Parameter Name="UserID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="proc_User_RegisterWithSocialNetworkAccount" ReturnType="Collection(dichoModel.proc_User_RegisterWithSocialNetworkAccount_Result)">
+            <Parameter Name="SocialID" Mode="In" Type="String" />
+            <Parameter Name="SocialToken" Mode="In" Type="String" />
+            <Parameter Name="SocialEmailAccount" Mode="In" Type="String" />
+            <Parameter Name="SocialFirstName" Mode="In" Type="String" />
+            <Parameter Name="SocialLastName" Mode="In" Type="String" />
+            <Parameter Name="SocialType" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="AvatarUrl" Mode="In" Type="String" />
+            <Parameter Name="DeviceFirmwareID" Mode="In" Type="String" />
+            <Parameter Name="AppID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_User_SignInWithFacebookAccount" ReturnType="Collection(dichoModel.proc_User_SignInWithFacebookAccount_Result)">
+            <Parameter Name="FacebookID" Mode="In" Type="String" />
+            <Parameter Name="FacebookToken" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_User_UpdateProfile" ReturnType="Collection(String)">
+            <Parameter Name="UserID" Mode="In" Type="Int64" />
+            <Parameter Name="FullName" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Avatar" Mode="In" Type="String" />
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="ZaloId" Mode="In" Type="String" />
+            <Parameter Name="CountryId" Mode="In" Type="Int32" />
+            <Parameter Name="CityId" Mode="In" Type="Int32" />
+            <Parameter Name="DiscId" Mode="In" Type="Int32" />
+            <Parameter Name="NumberMember" Mode="In" Type="Int32" />
+            <Parameter Name="NumberChild" Mode="In" Type="Int32" />
+            <Parameter Name="IsVegan" Mode="In" Type="Boolean" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="proc_ClientAppInfor_GetAllToken_Result">
           <Property Type="Int64" Name="user_id" Nullable="false" />
           <Property Type="String" Name="client_app_id" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="token" Nullable="false" MaxLength="64" />
+        </ComplexType>
+        <ComplexType Name="proc_User_Profile_Result">
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="20" />
+          <Property Type="Int64" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="social_name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="role" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="is_active" Nullable="false" />
+          <Property Type="String" Name="avatar" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="gender" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="dob" Nullable="true" Precision="23" />
+          <Property Type="String" Name="phone_number" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="zalo_id" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="country_id" Nullable="false" />
+          <Property Type="Int32" Name="city_id" Nullable="false" />
+          <Property Type="Int32" Name="disc_id" Nullable="false" />
+          <Property Type="Int32" Name="number_member" Nullable="false" />
+          <Property Type="Int32" Name="number_child" Nullable="false" />
+          <Property Type="Decimal" Name="save_money" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="is_vegan" Nullable="false" />
+          <Property Type="Int32" Name="business_rating" Nullable="false" />
+          <Property Type="Int64" Name="business_total_transaction" Nullable="false" />
+          <Property Type="Int64" Name="business_total_buying_free" Nullable="false" />
+          <Property Type="Int64" Name="business_number_of_transaction" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="proc_User_RegisterWithSocialNetworkAccount_Result">
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="20" />
+          <Property Type="Int64" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="role" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="avatar" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="proc_User_SignInWithFacebookAccount_Result">
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="20" />
+          <Property Type="Int64" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="full_name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="username" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="role" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="avatar" Nullable="false" MaxLength="256" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -102,6 +216,61 @@
           <FunctionImportMapping FunctionImportName="proc_ApiLog_Insert" FunctionName="dichoModel.Store.proc_ApiLog_Insert" />
           <FunctionImportMapping FunctionImportName="proc_ClientError_Insert" FunctionName="dichoModel.Store.proc_ClientError_Insert" />
           <FunctionImportMapping FunctionImportName="proc_ServerError_Insert" FunctionName="dichoModel.Store.proc_ServerError_Insert" />
+          <FunctionImportMapping FunctionImportName="proc_User_Profile" FunctionName="dichoModel.Store.proc_User_Profile">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dichoModel.proc_User_Profile_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="social_name" ColumnName="social_name" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="zalo_id" ColumnName="zalo_id" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="city_id" ColumnName="city_id" />
+                <ScalarProperty Name="disc_id" ColumnName="disc_id" />
+                <ScalarProperty Name="number_member" ColumnName="number_member" />
+                <ScalarProperty Name="number_child" ColumnName="number_child" />
+                <ScalarProperty Name="save_money" ColumnName="save_money" />
+                <ScalarProperty Name="is_vegan" ColumnName="is_vegan" />
+                <ScalarProperty Name="business_rating" ColumnName="business_rating" />
+                <ScalarProperty Name="business_total_transaction" ColumnName="business_total_transaction" />
+                <ScalarProperty Name="business_total_buying_free" ColumnName="business_total_buying_free" />
+                <ScalarProperty Name="business_number_of_transaction" ColumnName="business_number_of_transaction" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_User_RegisterWithSocialNetworkAccount" FunctionName="dichoModel.Store.proc_User_RegisterWithSocialNetworkAccount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dichoModel.proc_User_RegisterWithSocialNetworkAccount_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_User_SignInWithFacebookAccount" FunctionName="dichoModel.Store.proc_User_SignInWithFacebookAccount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dichoModel.proc_User_SignInWithFacebookAccount_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="avatar" ColumnName="avatar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="proc_User_UpdateProfile" FunctionName="dichoModel.Store.proc_User_UpdateProfile" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

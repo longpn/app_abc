@@ -45,6 +45,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -128,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\OutputData\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
@@ -175,19 +177,36 @@
     <Compile Include="DatabaseInteract\proc_ClientAppInfor_GetAllToken_Result.cs">
       <DependentUpon>DichoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseInteract\proc_User_Profile_Result.cs">
+      <DependentUpon>DichoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseInteract\proc_User_RegisterWithSocialNetworkAccount_Result.cs">
+      <DependentUpon>DichoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseInteract\proc_User_SignInWithFacebookAccount_Result.cs">
+      <DependentUpon>DichoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseInteract\TokenDatabaseInteract.cs" />
+    <Compile Include="DatabaseInteract\UserDatabaseInteract.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ApiResponseModel.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\InputData\ClientErrorInputData.cs" />
+    <Compile Include="Models\InputData\FacebookInfoInputData.cs" />
+    <Compile Include="Models\InputData\SignInWithFacebookInputData.cs" />
+    <Compile Include="Models\InputData\UpdateProfileInputData.cs" />
     <Compile Include="Models\OutputDataModel.cs" />
+    <Compile Include="Models\OutputData\BusinessProfileOutputData.cs" />
+    <Compile Include="Models\OutputData\SignInWithEmailAddressOutputData.cs" />
+    <Compile Include="Models\OutputData\UserProfileOutputData.cs" />
     <Compile Include="Models\Security\RequestedApiModel.cs" />
     <Compile Include="Models\Token\TokenInforModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ClientInforHelper.cs" />
     <Compile Include="Utilities\EncodeHelper.cs" />
+    <Compile Include="Utilities\FacebookHelper.cs" />
     <Compile Include="Utilities\MessageHelper.cs" />
   </ItemGroup>
   <ItemGroup>

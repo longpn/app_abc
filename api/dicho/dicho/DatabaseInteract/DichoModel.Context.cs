@@ -148,5 +148,137 @@ namespace dicho.DatabaseInteract
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_ServerError_Insert", userIDParameter, apiNameParameter, uriParameter, platformParameter, errorMessageParameter, statusCodeParameter, clientAppVersionParameter);
         }
+    
+        public virtual ObjectResult<proc_User_Profile_Result> proc_User_Profile(Nullable<long> userID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_User_Profile_Result>("proc_User_Profile", userIDParameter);
+        }
+    
+        public virtual ObjectResult<proc_User_RegisterWithSocialNetworkAccount_Result> proc_User_RegisterWithSocialNetworkAccount(string socialID, string socialToken, string socialEmailAccount, string socialFirstName, string socialLastName, string socialType, string gender, string avatarUrl, string deviceFirmwareID, string appID)
+        {
+            var socialIDParameter = socialID != null ?
+                new ObjectParameter("SocialID", socialID) :
+                new ObjectParameter("SocialID", typeof(string));
+    
+            var socialTokenParameter = socialToken != null ?
+                new ObjectParameter("SocialToken", socialToken) :
+                new ObjectParameter("SocialToken", typeof(string));
+    
+            var socialEmailAccountParameter = socialEmailAccount != null ?
+                new ObjectParameter("SocialEmailAccount", socialEmailAccount) :
+                new ObjectParameter("SocialEmailAccount", typeof(string));
+    
+            var socialFirstNameParameter = socialFirstName != null ?
+                new ObjectParameter("SocialFirstName", socialFirstName) :
+                new ObjectParameter("SocialFirstName", typeof(string));
+    
+            var socialLastNameParameter = socialLastName != null ?
+                new ObjectParameter("SocialLastName", socialLastName) :
+                new ObjectParameter("SocialLastName", typeof(string));
+    
+            var socialTypeParameter = socialType != null ?
+                new ObjectParameter("SocialType", socialType) :
+                new ObjectParameter("SocialType", typeof(string));
+    
+            var genderParameter = gender != null ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(string));
+    
+            var avatarUrlParameter = avatarUrl != null ?
+                new ObjectParameter("AvatarUrl", avatarUrl) :
+                new ObjectParameter("AvatarUrl", typeof(string));
+    
+            var deviceFirmwareIDParameter = deviceFirmwareID != null ?
+                new ObjectParameter("DeviceFirmwareID", deviceFirmwareID) :
+                new ObjectParameter("DeviceFirmwareID", typeof(string));
+    
+            var appIDParameter = appID != null ?
+                new ObjectParameter("AppID", appID) :
+                new ObjectParameter("AppID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_User_RegisterWithSocialNetworkAccount_Result>("proc_User_RegisterWithSocialNetworkAccount", socialIDParameter, socialTokenParameter, socialEmailAccountParameter, socialFirstNameParameter, socialLastNameParameter, socialTypeParameter, genderParameter, avatarUrlParameter, deviceFirmwareIDParameter, appIDParameter);
+        }
+    
+        public virtual ObjectResult<proc_User_SignInWithFacebookAccount_Result> proc_User_SignInWithFacebookAccount(string facebookID, string facebookToken)
+        {
+            var facebookIDParameter = facebookID != null ?
+                new ObjectParameter("FacebookID", facebookID) :
+                new ObjectParameter("FacebookID", typeof(string));
+    
+            var facebookTokenParameter = facebookToken != null ?
+                new ObjectParameter("FacebookToken", facebookToken) :
+                new ObjectParameter("FacebookToken", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_User_SignInWithFacebookAccount_Result>("proc_User_SignInWithFacebookAccount", facebookIDParameter, facebookTokenParameter);
+        }
+    
+        public virtual ObjectResult<string> proc_User_UpdateProfile(Nullable<long> userID, string fullName, string address, string avatar, string emailAddress, string gender, Nullable<System.DateTime> dOB, string phoneNumber, string zaloId, Nullable<int> countryId, Nullable<int> cityId, Nullable<int> discId, Nullable<int> numberMember, Nullable<int> numberChild, Nullable<bool> isVegan)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(long));
+    
+            var fullNameParameter = fullName != null ?
+                new ObjectParameter("FullName", fullName) :
+                new ObjectParameter("FullName", typeof(string));
+    
+            var addressParameter = address != null ?
+                new ObjectParameter("Address", address) :
+                new ObjectParameter("Address", typeof(string));
+    
+            var avatarParameter = avatar != null ?
+                new ObjectParameter("Avatar", avatar) :
+                new ObjectParameter("Avatar", typeof(string));
+    
+            var emailAddressParameter = emailAddress != null ?
+                new ObjectParameter("EmailAddress", emailAddress) :
+                new ObjectParameter("EmailAddress", typeof(string));
+    
+            var genderParameter = gender != null ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(string));
+    
+            var dOBParameter = dOB.HasValue ?
+                new ObjectParameter("DOB", dOB) :
+                new ObjectParameter("DOB", typeof(System.DateTime));
+    
+            var phoneNumberParameter = phoneNumber != null ?
+                new ObjectParameter("PhoneNumber", phoneNumber) :
+                new ObjectParameter("PhoneNumber", typeof(string));
+    
+            var zaloIdParameter = zaloId != null ?
+                new ObjectParameter("ZaloId", zaloId) :
+                new ObjectParameter("ZaloId", typeof(string));
+    
+            var countryIdParameter = countryId.HasValue ?
+                new ObjectParameter("CountryId", countryId) :
+                new ObjectParameter("CountryId", typeof(int));
+    
+            var cityIdParameter = cityId.HasValue ?
+                new ObjectParameter("CityId", cityId) :
+                new ObjectParameter("CityId", typeof(int));
+    
+            var discIdParameter = discId.HasValue ?
+                new ObjectParameter("DiscId", discId) :
+                new ObjectParameter("DiscId", typeof(int));
+    
+            var numberMemberParameter = numberMember.HasValue ?
+                new ObjectParameter("NumberMember", numberMember) :
+                new ObjectParameter("NumberMember", typeof(int));
+    
+            var numberChildParameter = numberChild.HasValue ?
+                new ObjectParameter("NumberChild", numberChild) :
+                new ObjectParameter("NumberChild", typeof(int));
+    
+            var isVeganParameter = isVegan.HasValue ?
+                new ObjectParameter("IsVegan", isVegan) :
+                new ObjectParameter("IsVegan", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("proc_User_UpdateProfile", userIDParameter, fullNameParameter, addressParameter, avatarParameter, emailAddressParameter, genderParameter, dOBParameter, phoneNumberParameter, zaloIdParameter, countryIdParameter, cityIdParameter, discIdParameter, numberMemberParameter, numberChildParameter, isVeganParameter);
+        }
     }
 }

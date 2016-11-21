@@ -179,9 +179,10 @@
     <Compile Include="Authentication\TokenManager.cs" />
     <Compile Include="Cache\TokenCache.cs" />
     <Compile Include="Cache\UsedTokenCache.cs" />
+    <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DatabaseInteract\DichoModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -279,6 +280,7 @@
       <DependentUpon>DichoModel.edmx</DependentUpon>
       <LastGenOutput>DichoModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\app_dicho.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

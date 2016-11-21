@@ -37,8 +37,8 @@ namespace dicho.Models
             public void AddBody(int code, string message, string detail)
             {
                 OutputDataModel outputData = new OutputDataModel();
-                outputData.StatusCode = code;
-                outputData.StatusDescription = message;
+                outputData.code = code;
+                outputData.description = message;
                 this.Body = outputData;
             }
 

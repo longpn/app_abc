@@ -44,7 +44,9 @@ namespace dicho.Models.Security
 
                 System.Version allowVersion = null;
                 System.Version requestVersion;
-                System.Version.TryParse(this.ApiVersion, out requestVersion);
+                string ver = this.ApiVersion;
+                ver = ver.Replace("v", "") + ".0";
+                System.Version.TryParse(ver, out requestVersion);
                 if (requestVersion != null)
                 {
                     switch (this.Platform)
@@ -105,8 +107,8 @@ namespace dicho.Models.Security
                         case "error":
                         case "resendverificationemail":
                         case "verifyforgotpassword":
-                        case "registerwithbusiness":
-                        case "category":
+                        case "facebook":
+                        case "login":
                         case "users":
                             {
                                 result = true;

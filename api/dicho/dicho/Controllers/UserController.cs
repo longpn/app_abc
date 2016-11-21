@@ -21,55 +21,22 @@ namespace dicho.Controllers
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [HttpPost]
-        [Route("api/1.0/User/RegisterWithEmailAddress")]
-        public OutputDataModel RegisterWithEmailAddressV1(RegisterWithEmailAddressInputData value)
+        [Route("api/v1/users")]
+        public OutputDataModel Post(RegisterWithEmailAddressInputData value)
         {
             OutputDataModel outputData = new OutputDataModel();
             outputData = UserDatabaseInteract.RegisterWithEmailAddress(value);
             return outputData;
-        }
-
-
-        
-
-
-        /// <summary>
-        /// Sign in with the email address
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("api/1.0/User/SignInWithEmailAddress")]
-        public OutputDataModel SignInWithEmailAddressV1(SignInWithEmailAddressInputData value)
-        {
-            OutputDataModel outputData = new OutputDataModel();
-            outputData = UserDatabaseInteract.SignInWithEmailAddress(value);
-            return outputData;
-        }
-
-        
-
-
-        /// <summary>
-        /// Sign in with facebook account
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("api/1.0/User/SignInWithFacebook")]
-        public OutputDataModel SignInWithFacebookV1(SignInWithFacebookInputData value)
-        {
-            return UserDatabaseInteract.SignInWithFacebookAccount(value);
-        }
+        }           
+            
 
         /// <summary>
         /// Get user's profile
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        [Route("api/1.0/users")]
-        public OutputDataModel GetUserProfile()
+       
+        [Route("api/v1/users")]
+        public OutputDataModel Get()
         {
             OutputDataModel outputData = new OutputDataModel();
             long userID = 2;// ClientInforHelper.GetUserID(this.Request);
@@ -80,8 +47,8 @@ namespace dicho.Controllers
             }
             else
             {
-                outputData.StatusCode = (int)Enums.StatusCode.NotExistedAccount;
-                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
+                outputData.code = (int)Enums.StatusCode.NotExistedAccount;
+                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
             }
             return outputData;
         }
@@ -89,10 +56,9 @@ namespace dicho.Controllers
         /// <summary>
         /// Update user's profile
         /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("api/1.0/users")]
-        public HttpResponseMessage UpdateProfile()
+        /// <returns></returns>        
+        [Route("api/v1/users")]
+        public HttpResponseMessage Put()
         {
             if (!Request.Content.IsMimeMultipartContent())
             {
@@ -210,8 +176,8 @@ namespace dicho.Controllers
                     }
                     else
                     {
-                        outputData.StatusCode = (int)Enums.StatusCode.UnsupportedFileType;
-                        outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.UnsupportedFileType);
+                        outputData.code = (int)Enums.StatusCode.UnsupportedFileType;
+                        outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.UnsupportedFileType);
                         return Request.CreateResponse(HttpStatusCode.OK, outputData);
                     }
                 }
@@ -233,8 +199,8 @@ namespace dicho.Controllers
             }
             else
             {
-                outputData.StatusCode = (int)Enums.StatusCode.NotExistedAccount;
-                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
+                outputData.code = (int)Enums.StatusCode.NotExistedAccount;
+                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
             }
             return Request.CreateResponse(HttpStatusCode.OK, outputData); ;
         }

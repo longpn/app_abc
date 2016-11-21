@@ -90,7 +90,7 @@ namespace dicho.Authentication
                         if (httpResponse.Body.GetType() == typeof(OutputDataModel))
                         {
                             OutputDataModel output = (OutputDataModel)httpResponse.Body;
-                            if (output.StatusCode == 400)
+                            if (output.code == 400)
                             {
                                 httpResponse.AddMeta(HttpStatusCode.BadRequest, "BadRequest", "Paramter(s) is not valid");
                                 httpResponse.Body = "";
@@ -228,9 +228,9 @@ namespace dicho.Authentication
                 {
                     switch (segment[2])
                     {
-                        case "1.0":
-                        case "2.0":
-                        case "2.1":
+                        case "v1":
+                        case "v2":
+                        case "v3":
                             {
                                 apiVersion = segment[2];
                                 break;

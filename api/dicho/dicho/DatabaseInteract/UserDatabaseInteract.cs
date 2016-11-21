@@ -30,30 +30,30 @@ namespace dicho.DatabaseInteract
                     {
                         case "NeedVerification":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.NeedVerificationUserAccount;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NeedVerificationUserAccount);
+                                outputData.code = (int)Enums.StatusCode.NeedVerificationUserAccount;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.NeedVerificationUserAccount);
 
                                // EmailHelper.SendSignUpEmail(item.VerificationCode, value.EmailAddress, value.LanguageCode);
                                 break;
                             }
                         case "Existed":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.AlreadyUserAccount;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.AlreadyUserAccount);
+                                outputData.code = (int)Enums.StatusCode.AlreadyUserAccount;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.AlreadyUserAccount);
                                 break;
                             }
                         default:
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.FaliedRegisterUserAccount;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FaliedRegisterUserAccount);
+                                outputData.code = (int)Enums.StatusCode.FaliedRegisterUserAccount;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FaliedRegisterUserAccount);
                                 break;
                             }
                     }
                 }
                 else
                 {
-                    outputData.StatusCode = (int)Enums.StatusCode.FaliedRegisterUserAccount;
-                    outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FaliedRegisterUserAccount);
+                    outputData.code = (int)Enums.StatusCode.FaliedRegisterUserAccount;
+                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FaliedRegisterUserAccount);
                 }
             }
             return outputData;
@@ -78,8 +78,8 @@ namespace dicho.DatabaseInteract
                     {
                         case "Successful":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.Successful;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
+                                outputData.code = (int)Enums.StatusCode.Successful;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
 
                                 SignInWithEmailAddressOutputData signIn = new SignInWithEmailAddressOutputData();
                                 signIn.user_id = item.UserID;
@@ -96,22 +96,22 @@ namespace dicho.DatabaseInteract
                             }
                         case "NeedVerification":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.NeedVerificationUserAccount;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NeedVerificationUserAccount);
+                                outputData.code = (int)Enums.StatusCode.NeedVerificationUserAccount;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.NeedVerificationUserAccount);
 
                                 //EmailHelper.SendSignUpEmail(item.VerificationCode, value.EmailAddress, value.LanguageCode);
                                 break;
                             }
                         case "IncorrectPassword":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.IncorrectPassword;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.IncorrectPassword);
+                                outputData.code = (int)Enums.StatusCode.IncorrectPassword;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.IncorrectPassword);
                                 break;
                             }
                         case "NotExisted":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.NotExistedAccount;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
+                                outputData.code = (int)Enums.StatusCode.NotExistedAccount;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
                                 break;
                             }
                         default:
@@ -120,8 +120,8 @@ namespace dicho.DatabaseInteract
                 }
                 else
                 {
-                    outputData.StatusCode = (int)Enums.StatusCode.NotExistedAccount;
-                    outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
+                    outputData.code = (int)Enums.StatusCode.NotExistedAccount;
+                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
                 }
             }
 
@@ -140,15 +140,15 @@ namespace dicho.DatabaseInteract
             //Sign in with facebook account
             using (DichoDataContext db = new DichoDataContext())
             {
-                var item = db.proc_User_SignInWithFacebookAccount(value.FacebookID, value.FacebookToken).FirstOrDefault();
+                var item = db.proc_User_SignInWithFacebookAccount(value.facebook_id, value.facebook_token).FirstOrDefault();
                 if (item != null)
                 {
                     switch (item.Status)
                     {
                         case "Successful":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.Successful;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
+                                outputData.code = (int)Enums.StatusCode.Successful;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
 
                                 SignInWithEmailAddressOutputData signIn = new SignInWithEmailAddressOutputData();
                                 signIn.user_id = item.user_id;
@@ -158,7 +158,7 @@ namespace dicho.DatabaseInteract
                                 signIn.avatar = item.avatar;
                                 //signIn.AvatarUrl = AzureStorageHelper.GetAvatarUrl(signIn.UserID, item.Avatar);
                                 signIn.client_app_id = TokenManager.GenerateClientAppID();
-                                signIn.access_token = TokenManager.GenerateAccessToken(signIn.user_id, value.DeviceFirmwareID, signIn.client_app_id);
+                                signIn.access_token = TokenManager.GenerateAccessToken(signIn.user_id, value.device_firmware_id, signIn.client_app_id);
 
                                 outputData.Data = signIn;
                                 return outputData;
@@ -169,21 +169,21 @@ namespace dicho.DatabaseInteract
 
 
             // Get information from facebook account
-            FacebookInfoInputData facebookInfor = FacebookHelper.GetFacebookAccountInfor(value.FacebookToken);
+            FacebookInfoInputData facebookInfor = FacebookHelper.GetFacebookAccountInfor(value.facebook_token);
 
             // Register With facebook account
             using (DichoDataContext db = new DichoDataContext())
             {
-                var item = db.proc_User_RegisterWithSocialNetworkAccount(value.FacebookID, value.FacebookToken, facebookInfor.FacebookAccount,
-                    facebookInfor.FirstName, facebookInfor.LastName, "Facebook", facebookInfor.Gender, "", value.DeviceFirmwareID, value.AppID).FirstOrDefault();
+                var item = db.proc_User_RegisterWithSocialNetworkAccount(value.facebook_id, value.facebook_token, facebookInfor.FacebookAccount,
+                    facebookInfor.FirstName, facebookInfor.LastName, "Facebook", facebookInfor.Gender, "", value.device_firmware_id, "").FirstOrDefault();
                 if (item != null)
                 {
                     switch (item.Status)
                     {
                         case "Successful":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.Successful;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
+                                outputData.code = (int)Enums.StatusCode.Successful;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
 
                                 SignInWithEmailAddressOutputData signIn = new SignInWithEmailAddressOutputData();
                                 signIn.user_id = item.user_id;
@@ -193,15 +193,15 @@ namespace dicho.DatabaseInteract
                                 signIn.avatar = item.avatar;
                                 //signIn.AvatarUrl = AzureStorageHelper.GetAvatarUrl(signIn.UserID, item.Avatar);
                                 signIn.client_app_id = TokenManager.GenerateClientAppID();
-                                signIn.access_token = TokenManager.GenerateAccessToken(signIn.user_id, value.DeviceFirmwareID, signIn.client_app_id);
+                                signIn.access_token = TokenManager.GenerateAccessToken(signIn.user_id, value.device_firmware_id, signIn.client_app_id);
 
                                 outputData.Data = signIn;
                                 break;
                             }
                         default:
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.FailedSignInWithFacebook;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
+                                outputData.code = (int)Enums.StatusCode.FailedSignInWithFacebook;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
                                 break;
                             }
 
@@ -209,8 +209,8 @@ namespace dicho.DatabaseInteract
                 }
                 else
                 {
-                    outputData.StatusCode = (int)Enums.StatusCode.FailedSignInWithFacebook;
-                    outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
+                    outputData.code = (int)Enums.StatusCode.FailedSignInWithFacebook;
+                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
                 }
             }
 
@@ -235,8 +235,8 @@ namespace dicho.DatabaseInteract
                     {
                         case "Successful":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.Successful;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
+                                outputData.code = (int)Enums.StatusCode.Successful;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
 
 
                                 if (item.role.Equals(Enums.UserRole.Business))
@@ -307,14 +307,14 @@ namespace dicho.DatabaseInteract
                             }
                         case "NotExisted":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.NotExistedAccount;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
+                                outputData.code = (int)Enums.StatusCode.NotExistedAccount;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
                                 break;
                             }
                         default:
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.FailedGetUserProfile;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedGetUserProfile);
+                                outputData.code = (int)Enums.StatusCode.FailedGetUserProfile;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedGetUserProfile);
                                 break;
                             }
                     }
@@ -322,8 +322,8 @@ namespace dicho.DatabaseInteract
                 else
                 {
 
-                    outputData.StatusCode = (int)Enums.StatusCode.FailedGetUserProfile;
-                    outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedGetUserProfile);
+                    outputData.code = (int)Enums.StatusCode.FailedGetUserProfile;
+                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedGetUserProfile);
 
                 }
             }
@@ -344,8 +344,8 @@ namespace dicho.DatabaseInteract
                     {
                         case "Successful":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.Successful;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
+                                outputData.code = (int)Enums.StatusCode.Successful;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
                                 if (!string.IsNullOrEmpty(value.avatar))
                                 {
                                     //Moves the temp file to container of user
@@ -355,28 +355,28 @@ namespace dicho.DatabaseInteract
                             }
                         case "NotExisted":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.NotExistedAccount;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
+                                outputData.code = (int)Enums.StatusCode.NotExistedAccount;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.NotExistedAccount);
                                 break;
                             }
                         case "Failed":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.FailedUpdateProfile;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedUpdateProfile);
+                                outputData.code = (int)Enums.StatusCode.FailedUpdateProfile;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedUpdateProfile);
                                 break;
                             }
                         default:
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.FailedUpdateProfile;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedUpdateProfile);
+                                outputData.code = (int)Enums.StatusCode.FailedUpdateProfile;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedUpdateProfile);
                                 break;
                             }
                     }
                 }
                 else
                 {
-                    outputData.StatusCode = (int)Enums.StatusCode.FailedUpdateProfile;
-                    outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedUpdateProfile);
+                    outputData.code = (int)Enums.StatusCode.FailedUpdateProfile;
+                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedUpdateProfile);
 
                 }
             }

@@ -10,32 +10,22 @@ namespace dicho.Models.InputData
     {
         [Required]
         [MaxLength(30)]
-        public string FacebookID { get; set; }
+        public string facebook_id { get; set; }
 
         [Required]
         [MaxLength(512)]
-        public string FacebookToken { get; set; }
+        public string facebook_token { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string DeviceFirmwareID { get; set; }
+        public string device_firmware_id { get; set; }
 
-
-        [MaxLength(128)]
-        public string AppID { get; set; }
-
-        [Required]
-        [MaxLength(3)]
-        public string LanguageCode { get; set; }
-
-
+      
         public SignInWithFacebookInputData()
         {
-            this.FacebookID = string.Empty;
-            this.FacebookToken = string.Empty;
-            this.DeviceFirmwareID = string.Empty;
-            this.AppID = string.Empty;
-            this.LanguageCode = string.Empty;
+            this.facebook_id = string.Empty;
+            this.facebook_token = string.Empty;
+            this.device_firmware_id = string.Empty;
         }
 
 

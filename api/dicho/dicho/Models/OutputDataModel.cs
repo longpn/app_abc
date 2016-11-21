@@ -8,14 +8,14 @@ namespace dicho.Models
     public class OutputDataModel
     {
 
-        public int StatusCode { get; set; }
-        public string StatusDescription { get; set; }
+        public int code { get; set; }
+        public string description { get; set; }
         public object Data { get; set; }
 
         public OutputDataModel()
         {
-            this.StatusCode = 0;
-            this.StatusDescription = string.Empty;
+            this.code = 0;
+            this.description = string.Empty;
             this.Data = string.Empty;
         }
     }

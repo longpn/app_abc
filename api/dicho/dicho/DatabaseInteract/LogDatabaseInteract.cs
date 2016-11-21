@@ -61,16 +61,16 @@ namespace dicho.DatabaseInteract
                     {
                         case "Successful":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.Successful;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
+                                outputData.code = (int)Enums.StatusCode.Successful;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
 
                                 //Send out an email to admin
                                 break;
                             }
                         case "Failed":
                             {
-                                outputData.StatusCode = (int)Enums.StatusCode.FailedLogClientError;
-                                outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedLogClientError);
+                                outputData.code = (int)Enums.StatusCode.FailedLogClientError;
+                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedLogClientError);
                                 break;
                             }
                         default:
@@ -80,8 +80,8 @@ namespace dicho.DatabaseInteract
                 }
                 else
                 {
-                    outputData.StatusCode = (int)Enums.StatusCode.FailedLogClientError;
-                    outputData.StatusDescription = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedLogClientError);
+                    outputData.code = (int)Enums.StatusCode.FailedLogClientError;
+                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedLogClientError);
                 }
             }
 

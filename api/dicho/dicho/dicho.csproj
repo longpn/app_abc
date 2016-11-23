@@ -199,6 +199,9 @@
       <DependentUpon>DichoModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DatabaseInteract\LogDatabaseInteract.cs" />
+    <Compile Include="DatabaseInteract\proc_Category_Get_Result.cs">
+      <DependentUpon>DichoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseInteract\proc_ClientAppInfor_GetAllToken_Result.cs">
       <DependentUpon>DichoModel.tt</DependentUpon>
     </Compile>

@@ -310,5 +310,85 @@ namespace dicho.DatabaseInteract
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_User_SignInWithEmailAddress_Result>("proc_User_SignInWithEmailAddress", userNameParameter, passwordParameter);
         }
+    
+        public virtual ObjectResult<string> proc_category_delete(Nullable<int> category_id, string category_status)
+        {
+            var category_idParameter = category_id.HasValue ?
+                new ObjectParameter("category_id", category_id) :
+                new ObjectParameter("category_id", typeof(int));
+    
+            var category_statusParameter = category_status != null ?
+                new ObjectParameter("category_status", category_status) :
+                new ObjectParameter("category_status", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("proc_category_delete", category_idParameter, category_statusParameter);
+        }
+    
+        public virtual ObjectResult<proc_Category_Get_Result> proc_Category_Get(Nullable<int> type)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Category_Get_Result>("proc_Category_Get", typeParameter);
+        }
+    
+        public virtual int proc_Category_Insert(Nullable<int> type, Nullable<int> sort_order, string name, string description, string icon)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            var sort_orderParameter = sort_order.HasValue ?
+                new ObjectParameter("sort_order", sort_order) :
+                new ObjectParameter("sort_order", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var iconParameter = icon != null ?
+                new ObjectParameter("icon", icon) :
+                new ObjectParameter("icon", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proc_Category_Insert", typeParameter, sort_orderParameter, nameParameter, descriptionParameter, iconParameter);
+        }
+    
+        public virtual ObjectResult<string> proc_category_update(Nullable<long> category_id, Nullable<int> type, Nullable<int> sort_order, string name, string description, string icon, string category_status)
+        {
+            var category_idParameter = category_id.HasValue ?
+                new ObjectParameter("category_id", category_id) :
+                new ObjectParameter("category_id", typeof(long));
+    
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("type", type) :
+                new ObjectParameter("type", typeof(int));
+    
+            var sort_orderParameter = sort_order.HasValue ?
+                new ObjectParameter("sort_order", sort_order) :
+                new ObjectParameter("sort_order", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var iconParameter = icon != null ?
+                new ObjectParameter("icon", icon) :
+                new ObjectParameter("icon", typeof(string));
+    
+            var category_statusParameter = category_status != null ?
+                new ObjectParameter("category_status", category_status) :
+                new ObjectParameter("category_status", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("proc_category_update", category_idParameter, typeParameter, sort_orderParameter, nameParameter, descriptionParameter, iconParameter, category_statusParameter);
+        }
     }
 }

@@ -30,7 +30,8 @@ namespace dicho.Authentication
                     if (!IsValidateHeaderFormat(request))
                     {
                         apiLog.HttpStatusCode = (int)HttpStatusCode.NotAcceptable;
-                        httpResponse.AddMeta(HttpStatusCode.NotAcceptable, "NotAcceptable", "Your request is invalid");
+                        //httpResponse.AddMeta(HttpStatusCode.NotAcceptable, "NotAcceptable", "Your request is invalid");
+                        httpResponse.AddBody(HttpStatusCode.NotAcceptable.GetHashCode(), "NotAcceptable: Your request is invalid","");
                         // Logs API
                         LogDatabaseInteract.ApiLog(apiLog);
                         return request.CreateResponse(HttpStatusCode.OK, httpResponse);
@@ -54,8 +55,8 @@ namespace dicho.Authentication
                             case Enums.TokenValidation.Invalid:
                                 {
                                     apiLog.HttpStatusCode = (int)HttpStatusCode.Unauthorized;
-                                    httpResponse.AddMeta(HttpStatusCode.Unauthorized, "Access Denied", "Your token is invalid or expired");
-
+                                    //httpResponse.AddMeta(HttpStatusCode.Unauthorized, "Access Denied", "Your token is invalid or expired");
+                                    httpResponse.AddBody(HttpStatusCode.Unauthorized.GetHashCode(), "Access Denied: Your token is invalid or expired","");
                                     // Logs API
                                     LogDatabaseInteract.ApiLog(apiLog);
                                     return request.CreateResponse(HttpStatusCode.OK, httpResponse);
@@ -92,15 +93,16 @@ namespace dicho.Authentication
                             OutputDataModel output = (OutputDataModel)httpResponse.Body;
                             if (output.code == 400)
                             {
-                                httpResponse.AddMeta(HttpStatusCode.BadRequest, "BadRequest", "Paramter(s) is not valid");
-                                httpResponse.Body = "";
+                                //httpResponse.AddMeta(HttpStatusCode.BadRequest, "BadRequest", "Paramter(s) is not valid");
+                                //httpResponse.Body = "";
+                                httpResponse.AddBody(HttpStatusCode.BadRequest.GetHashCode(), "BadRequest: Paramter(s) is not valid","");
                                 isValid = false;
                             }
                         }
                     }
                     else
                     {
-                        httpResponse.AddMeta(HttpStatusCode.OK, response.ReasonPhrase, errorDetail);
+                        //httpResponse.AddMeta(HttpStatusCode.OK, response.ReasonPhrase, errorDetail);
                     }
                 }
                 else
@@ -121,7 +123,7 @@ namespace dicho.Authentication
 
                 if (isValid)
                 {
-                    httpResponse.AddMeta(response.StatusCode, response.ReasonPhrase, errorDetail);
+                    //httpResponse.AddMeta(response.StatusCode, response.ReasonPhrase, errorDetail);
                 }
 
 
@@ -137,7 +139,8 @@ namespace dicho.Authentication
             {
                 //Unsupported the old version
                 apiLog.HttpStatusCode = (int)HttpStatusCode.UpgradeRequired;
-                httpResponse.AddMeta(HttpStatusCode.UpgradeRequired, "UpgradeApplication", "Upgrade Application is required.");
+                //httpResponse.AddMeta(HttpStatusCode.UpgradeRequired, "UpgradeApplication", "Upgrade Application is required.");
+                httpResponse.AddBody(HttpStatusCode.UpgradeRequired.GetHashCode(), "UpgradeApplication: Upgrade Application is required","");
 
                 // Logs API
                 LogDatabaseInteract.ApiLog(apiLog);

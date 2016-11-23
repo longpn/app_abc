@@ -11,28 +11,28 @@ namespace dicho.Models
         /// </summary>
         public class ApiResponseModel
         {
-            public Dictionary<string, string> Meta { get; set; }
+            //public Dictionary<string, string> Meta { get; set; }
             public object Body { get; set; }
 
             public ApiResponseModel()
             {
-                this.Meta = new Dictionary<string, string>();
+                //this.Meta = new Dictionary<string, string>();
                 this.Body = string.Empty;
             }
 
-            public void AddMeta(HttpStatusCode code, string message, string detail)
-            {
-                this.Meta.Add("Code", code.GetHashCode().ToString());
-                this.Meta.Add("Message", message);
-                this.Meta.Add("Detail", detail);
-            }
+            //public void AddMeta(HttpStatusCode code, string message, string detail)
+            //{
+            //    this.Meta.Add("Code", code.GetHashCode().ToString());
+            //    this.Meta.Add("Message", message);
+            //    this.Meta.Add("Detail", detail);
+            //}
 
-            public void AddMeta(int code, string message, string detail)
-            {
-                this.Meta.Add("Code", code.GetHashCode().ToString());
-                this.Meta.Add("Message", message);
-                this.Meta.Add("Detail", detail);
-            }
+            //public void AddMeta(int code, string message, string detail)
+            //{
+            //    this.Meta.Add("Code", code.GetHashCode().ToString());
+            //    this.Meta.Add("Message", message);
+            //    this.Meta.Add("Detail", detail);
+            //}
 
             public void AddBody(int code, string message, string detail)
             {
@@ -41,8 +41,6 @@ namespace dicho.Models
                 outputData.description = message;
                 this.Body = outputData;
             }
-
-
-
+            
         }
 }

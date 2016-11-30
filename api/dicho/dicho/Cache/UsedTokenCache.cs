@@ -63,7 +63,7 @@ namespace dicho.Cache
             if (usedTokenDataCache != null)
             {
                 var existedAccessToken = usedTokenDataCache.Get(accessToken);
-                if (!string.IsNullOrEmpty(existedAccessToken.ToString()))
+                if (existedAccessToken!=null && !string.IsNullOrEmpty(existedAccessToken.ToString()))
                 {
                     return true;
                 }

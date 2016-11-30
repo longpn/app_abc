@@ -179,10 +179,12 @@
     <Compile Include="Authentication\TokenManager.cs" />
     <Compile Include="Cache\TokenCache.cs" />
     <Compile Include="Cache\UsedTokenCache.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DatabaseInteract\CategoryInteract.cs" />
     <Compile Include="DatabaseInteract\DichoModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -235,6 +237,7 @@
     <Compile Include="Models\InputData\UpdateProfileInputData.cs" />
     <Compile Include="Models\OutputDataModel.cs" />
     <Compile Include="Models\OutputData\BusinessProfileOutputData.cs" />
+    <Compile Include="Models\OutputData\CategoryOutputData.cs" />
     <Compile Include="Models\OutputData\SignInWithEmailAddressOutputData.cs" />
     <Compile Include="Models\OutputData\UserProfileOutputData.cs" />
     <Compile Include="Models\Security\RequestedApiModel.cs" />

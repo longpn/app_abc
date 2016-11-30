@@ -324,15 +324,6 @@ namespace dicho.DatabaseInteract
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("proc_category_delete", category_idParameter, category_statusParameter);
         }
     
-        public virtual ObjectResult<proc_Category_Get_Result> proc_Category_Get(Nullable<int> type)
-        {
-            var typeParameter = type.HasValue ?
-                new ObjectParameter("type", type) :
-                new ObjectParameter("type", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Category_Get_Result>("proc_Category_Get", typeParameter);
-        }
-    
         public virtual int proc_Category_Insert(Nullable<int> type, Nullable<int> sort_order, string name, string description, string icon)
         {
             var typeParameter = type.HasValue ?
@@ -389,6 +380,15 @@ namespace dicho.DatabaseInteract
                 new ObjectParameter("category_status", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("proc_category_update", category_idParameter, typeParameter, sort_orderParameter, nameParameter, descriptionParameter, iconParameter, category_statusParameter);
+        }
+    
+        public virtual ObjectResult<proc_Category_Get_Result> proc_Category_Get(Nullable<int> type_id)
+        {
+            var type_idParameter = type_id.HasValue ?
+                new ObjectParameter("type_id", type_id) :
+                new ObjectParameter("type_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<proc_Category_Get_Result>("proc_Category_Get", type_idParameter);
         }
     }
 }

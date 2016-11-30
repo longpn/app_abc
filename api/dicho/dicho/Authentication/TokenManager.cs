@@ -152,11 +152,11 @@ namespace dicho.Authentication
         public static Enums.TokenValidation AuthorizeRequest(HttpRequestMessage request)
         {
             Enums.TokenValidation result = Enums.TokenValidation.Invalid;
-            string clientSignature = request.Headers.Authorization.Parameter.Split(':')[1];
+            string clientSignature = request.Headers.Authorization.Scheme.Split('|')[1];
 
             if (!UsedTokenCache.Instance.IsExistAccessToken(clientSignature))
             {
-                string clientAppID = request.Headers.Authorization.Parameter.Split(':')[0];
+                string clientAppID = request.Headers.Authorization.Scheme.Split('|')[0];
 
                 // Read from Azure Cache
                 string sharedKey = TokenCache.Instance.GetSharedToken(clientAppID);

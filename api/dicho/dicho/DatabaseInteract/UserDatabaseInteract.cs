@@ -170,50 +170,58 @@ namespace dicho.DatabaseInteract
 
             // Get information from facebook account
             FacebookInfoInputData facebookInfor = FacebookHelper.GetFacebookAccountInfor(value.facebook_token);
-
-            // Register With facebook account
-            using (DichoDataContext db = new DichoDataContext())
+            if(!string.IsNullOrEmpty(facebookInfor.FacebookID))
             {
-                var item = db.proc_User_RegisterWithSocialNetworkAccount(value.facebook_id, value.facebook_token, facebookInfor.FacebookAccount,
-                    facebookInfor.FirstName, facebookInfor.LastName, "Facebook", facebookInfor.Gender, "", value.device_firmware_id, "").FirstOrDefault();
-                if (item != null)
+                // Register With facebook account
+                using (DichoDataContext db = new DichoDataContext())
                 {
-                    switch (item.Status)
+                    var item = db.proc_User_RegisterWithSocialNetworkAccount(value.facebook_id, value.facebook_token, facebookInfor.FacebookAccount,
+                        facebookInfor.FirstName, facebookInfor.LastName, "Facebook", facebookInfor.Gender, "", value.device_firmware_id, "").FirstOrDefault();
+                    if (item != null)
                     {
-                        case "Successful":
-                            {
-                                outputData.code = (int)Enums.StatusCode.Successful;
-                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
+                        switch (item.Status)
+                        {
+                            case "Successful":
+                                {
+                                    outputData.code = (int)Enums.StatusCode.Successful;
+                                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.Successful);
 
-                                SignInWithEmailAddressOutputData signIn = new SignInWithEmailAddressOutputData();
-                                signIn.user_id = item.user_id;
-                                signIn.username = item.username;
-                                signIn.fullname = item.full_name;
-                                signIn.role = item.role;
-                                signIn.avatar = item.avatar;
-                                //signIn.AvatarUrl = AzureStorageHelper.GetAvatarUrl(signIn.UserID, item.Avatar);
-                                signIn.client_app_id = TokenManager.GenerateClientAppID();
-                                signIn.access_token = TokenManager.GenerateAccessToken(signIn.user_id, value.device_firmware_id, signIn.client_app_id);
+                                    SignInWithEmailAddressOutputData signIn = new SignInWithEmailAddressOutputData();
+                                    signIn.user_id = item.user_id;
+                                    signIn.username = item.username;
+                                    signIn.fullname = item.full_name;
+                                    signIn.role = item.role;
+                                    signIn.avatar = item.avatar;
+                                    //signIn.AvatarUrl = AzureStorageHelper.GetAvatarUrl(signIn.UserID, item.Avatar);
+                                    signIn.client_app_id = TokenManager.GenerateClientAppID();
+                                    signIn.access_token = TokenManager.GenerateAccessToken(signIn.user_id, value.device_firmware_id, signIn.client_app_id);
 
-                                outputData.Data = signIn;
-                                break;
-                            }
-                        default:
-                            {
-                                outputData.code = (int)Enums.StatusCode.FailedSignInWithFacebook;
-                                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
-                                break;
-                            }
+                                    outputData.Data = signIn;
+                                    break;
+                                }
+                            default:
+                                {
+                                    outputData.code = (int)Enums.StatusCode.FailedSignInWithFacebook;
+                                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
+                                    break;
+                                }
 
+                        }
+                    }
+                    else
+                    {
+                        outputData.code = (int)Enums.StatusCode.FailedSignInWithFacebook;
+                        outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
                     }
                 }
-                else
-                {
-                    outputData.code = (int)Enums.StatusCode.FailedSignInWithFacebook;
-                    outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
-                }
             }
-
+            else
+            {
+                outputData.code = (int)Enums.StatusCode.FailedSignInWithFacebook;
+                outputData.description = MessageHelper.GetStatusDecription(Enums.StatusCode.FailedSignInWithFacebook);
+            }
+            
+            
 
             return outputData;
         }

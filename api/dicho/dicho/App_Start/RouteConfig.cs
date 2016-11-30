@@ -14,6 +14,12 @@ namespace dicho
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+              name: "Privacy",
+              url: "Privacy",
+              defaults: new { controller = "Home", action = "PrivacyPolicy", id = UrlParameter.Optional }
+          );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

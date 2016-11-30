@@ -160,11 +160,11 @@ namespace dicho.Utilities
             var authorization = request.Headers.Authorization;
             if (authorization != null)
             {
-                if (!string.IsNullOrEmpty(authorization.Parameter))
+                //if (!string.IsNullOrEmpty(authorization.Parameter))
                 {
-                    if (authorization.Parameter.Contains(":"))
+                    if (authorization.Scheme.Contains("|"))
                     {
-                        clientAppID = authorization.Parameter.Split(':')[0];
+                        clientAppID = authorization.Scheme.Split('|')[0];
                     }
                 }
             }

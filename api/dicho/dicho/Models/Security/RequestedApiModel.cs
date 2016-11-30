@@ -110,6 +110,7 @@ namespace dicho.Models.Security
                         case "facebook":
                         case "login":
                         case "users":
+                        case "category":
                             {
                                 result = true;
                                 break;

@@ -22,7 +22,7 @@
           <Parameter Name="category_status" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="proc_Category_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="type" Type="int" Mode="In" />
+          <Parameter Name="type_id" Type="int" Mode="In" />
         </Function>
         <Function Name="proc_Category_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="type" Type="int" Mode="In" />
@@ -194,9 +194,6 @@
             <Parameter Name="category_id" Mode="In" Type="Int32" />
             <Parameter Name="category_status" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="proc_Category_Get" ReturnType="Collection(dichoModel.proc_Category_Get_Result)">
-            <Parameter Name="type" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="proc_Category_Insert">
             <Parameter Name="type" Mode="In" Type="Int32" />
             <Parameter Name="sort_order" Mode="In" Type="Int32" />
@@ -212,6 +209,9 @@
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="icon" Mode="In" Type="String" />
             <Parameter Name="category_status" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="proc_Category_Get" ReturnType="Collection(dichoModel.proc_Category_Get_Result)">
+            <Parameter Name="type_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="proc_ClientAppInfor_GetAllToken_Result">
@@ -276,13 +276,8 @@
         </ComplexType>
         <ComplexType Name="proc_Category_Get_Result">
           <Property Type="Int32" Name="category_id" Nullable="false" />
-          <Property Type="Int32" Name="type" Nullable="false" />
           <Property Type="String" Name="category_name" Nullable="false" MaxLength="150" />
-          <Property Type="String" Name="category_description" Nullable="false" MaxLength="256" />
-          <Property Type="DateTime" Name="created_date" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="sort_order" Nullable="false" />
-          <Property Type="String" Name="icon" Nullable="true" MaxLength="256" />
-          <Property Type="String" Name="status" Nullable="true" MaxLength="10" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -380,22 +375,17 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="proc_category_delete" FunctionName="dichoModel.Store.proc_category_delete" />
+          <FunctionImportMapping FunctionImportName="proc_Category_Insert" FunctionName="dichoModel.Store.proc_Category_Insert" />
+          <FunctionImportMapping FunctionImportName="proc_category_update" FunctionName="dichoModel.Store.proc_category_update" />
           <FunctionImportMapping FunctionImportName="proc_Category_Get" FunctionName="dichoModel.Store.proc_Category_Get">
             <ResultMapping>
               <ComplexTypeMapping TypeName="dichoModel.proc_Category_Get_Result">
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
-                <ScalarProperty Name="type" ColumnName="type" />
                 <ScalarProperty Name="category_name" ColumnName="category_name" />
-                <ScalarProperty Name="category_description" ColumnName="category_description" />
-                <ScalarProperty Name="created_date" ColumnName="created_date" />
                 <ScalarProperty Name="sort_order" ColumnName="sort_order" />
-                <ScalarProperty Name="icon" ColumnName="icon" />
-                <ScalarProperty Name="status" ColumnName="status" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="proc_Category_Insert" FunctionName="dichoModel.Store.proc_Category_Insert" />
-          <FunctionImportMapping FunctionImportName="proc_category_update" FunctionName="dichoModel.Store.proc_category_update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

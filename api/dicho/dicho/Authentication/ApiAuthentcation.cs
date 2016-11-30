@@ -38,36 +38,29 @@ namespace dicho.Authentication
                     }
                     else
                     {
-                        string clientAppID = request.Headers.Authorization.Parameter.Split(':')[0];
+                        string clientAppID = request.Headers.Authorization.Scheme.Split('|')[0];
                         apiLog.UserID = TokenManager.GetUserIDFromServerCache(clientAppID);
                         Enums.TokenValidation validate = Enums.TokenValidation.Invalid;
-                        if (apiLog.UserID == 3)
-                        {
-                            validate = Enums.TokenValidation.Valid;
-                        }
-                        else
-                        {
-                            validate = TokenManager.AuthorizeRequest(request);
-                        }
+                        validate = TokenManager.AuthorizeRequest(request);
 
-                        switch (validate)
-                        {
-                            case Enums.TokenValidation.Invalid:
-                                {
-                                    apiLog.HttpStatusCode = (int)HttpStatusCode.Unauthorized;
-                                    //httpResponse.AddMeta(HttpStatusCode.Unauthorized, "Access Denied", "Your token is invalid or expired");
-                                    httpResponse.AddBody(HttpStatusCode.Unauthorized.GetHashCode(), "Access Denied: Your token is invalid or expired","");
-                                    // Logs API
-                                    LogDatabaseInteract.ApiLog(apiLog);
-                                    return request.CreateResponse(HttpStatusCode.OK, httpResponse);
-                                }
-                            case Enums.TokenValidation.Valid:
-                                {
-                                    break;
-                                }
-                            default:
-                                goto case Enums.TokenValidation.Invalid;
-                        }
+                        //switch (validate)
+                        //{
+                        //    case Enums.TokenValidation.Invalid:
+                        //        {
+                        //            apiLog.HttpStatusCode = (int)HttpStatusCode.Unauthorized;
+                        //            //httpResponse.AddMeta(HttpStatusCode.Unauthorized, "Access Denied", "Your token is invalid or expired");
+                        //            httpResponse.AddBody(HttpStatusCode.Unauthorized.GetHashCode(), "Access Denied: Your token is invalid or expired","");
+                        //            // Logs API
+                        //            LogDatabaseInteract.ApiLog(apiLog);
+                        //            return request.CreateResponse(HttpStatusCode.OK, httpResponse);
+                        //        }
+                        //    case Enums.TokenValidation.Valid:
+                        //        {
+                        //            break;
+                        //        }
+                        //    default:
+                        //        goto case Enums.TokenValidation.Invalid;
+                        //}
                     }
 
                 }
@@ -124,6 +117,11 @@ namespace dicho.Authentication
                 if (isValid)
                 {
                     //httpResponse.AddMeta(response.StatusCode, response.ReasonPhrase, errorDetail);
+                    if (string.IsNullOrEmpty(httpResponse.Body.ToString()))
+                    {
+                        httpResponse.AddBody(response.StatusCode.GetHashCode(), response.ReasonPhrase, errorDetail);
+                    }
+                    
                 }
 
 
@@ -161,9 +159,9 @@ namespace dicho.Authentication
             bool result = false;
             if (request.Headers.Authorization != null)
             {
-                if (request.Headers.Authorization.Scheme.ToLower() == "dc")
+                //if (request.Headers.Authorization.Scheme.ToLower() == "dc")
                 {
-                    if (request.Headers.Authorization.Parameter.Contains(":"))
+                    if (request.Headers.Authorization.Scheme.Contains("|"))
                     {
                         if (request.Headers.Where(cc => cc.Key == "DateTime").Count() > 0)
                         {

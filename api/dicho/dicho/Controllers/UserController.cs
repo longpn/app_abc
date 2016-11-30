@@ -39,7 +39,7 @@ namespace dicho.Controllers
         public OutputDataModel Get()
         {
             OutputDataModel outputData = new OutputDataModel();
-            long userID = 2;// ClientInforHelper.GetUserID(this.Request);
+            long userID =  ClientInforHelper.GetUserID(this.Request);
 
             if (userID > 0)
             {

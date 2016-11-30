@@ -178,8 +178,9 @@ namespace dicho.Utilities
         public static string HashAccessToken(HttpRequestMessage request, string sharedKey)
         {
             string serverHash = string.Empty;
-
-            string signMessage = DataSignature(request);
+            string dateTime = request.Headers.GetValues("DateTime").ToList()[0];
+            string signMessage = string.Format("{0}\n{1}", dateTime, sharedKey);
+            //string signMessage = DataSignature(request);
 
             serverHash = HMACHash(sharedKey, signMessage);
 

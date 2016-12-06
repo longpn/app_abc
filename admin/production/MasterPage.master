@@ -286,6 +286,16 @@
             });
         });
     </script>
+     <script>
+         $(document).ready(function () {
+             $('table tbody tr  td').on('click', function () {
+                 $("#myModal").modal("show");
+                 $("#name").val($(this).closest('tr').children()[1].textContent);
+                 $("#descr").val($(this).closest('tr').children()[2].textContent);
+                 $("#sort").val($(this).closest('tr').children()[3].textContent);
+             });
+         });
+    </script>
     <!-- /bootstrap-daterangepicker -->
 
     <!-- bootstrap-wysiwyg -->

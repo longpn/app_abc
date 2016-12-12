@@ -1,13 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/production/MasterPage.master" AutoEventWireup="true" CodeFile="category.aspx.cs" Inherits="production_category" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/production/MasterPage.master" AutoEventWireup="true" CodeFile="Products.aspx.cs" Inherits="production_Products" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
-    <div class="x_content">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+     <div class="x_content">
 
         <p>Quản lý danh sách danh mục</p>
           <button type="button" id="btnNew" onclick="showModal();" class="btn btn-primary">Add new</button>
         <div class="table-responsive">
-            <%if (cate != null)
+            <%if (product != null)
               { %>
             <table class="table table-striped jambo_table bulk_action">
                 <thead>
@@ -16,21 +15,23 @@
                         <th class="column-title">ID </th>
                         <th class="column-title">Name </th>
                         <th class="column-title">Description </th>
-                        <th class="column-title">Sort order </th>
+                        <th class="column-title">Price </th>
+                         <th class="column-title">Unit </th>
                         <th class="column-title no-link last"><span class="nobr">Action</span>
                         </th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <%for (int i = 0; i < cate.Count; i++)
+                    <%for (int i = 0; i < product.Count; i++)
                       { %>
                     <tr class="even pointer">
 
-                        <td class=" "><%=cate[i].category_id %></td>
-                        <td class=" "><%=cate[i].category_name %> </td>
-                        <td class=" "><%=cate[i].category_description %> </td>
-                        <td class=" "><%=cate[i].sort_order %><i class="success fa fa-long-arrow-up"></i></td>
+                        <td class=" "><%=product[i].product_id %></td>
+                        <td class=" "><%=product[i].product_name %> </td>
+                        <td class=" "><%=product[i].product_description %> </td>
+                         <td class=" "><%=product[i].price %> </td>
+                        <td class=" "><%=product[i].unit %></td>
 
                         <td class=" last"><a href="#">View</a>
                         </td>
@@ -49,7 +50,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel2">Chỉnh sửa danh mục</h4>
+                    <h4 class="modal-title" id="myModalLabel2">Chỉnh sửa sản phẩm</h4>
                 </div>
                  <form id="antoform" method="post" action="category.aspx" class="form-horizontal calender" role="form">
                 <div class="modal-body">
@@ -71,8 +72,7 @@
                             </label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="sort" name="sort" />
-                                <input type="hidden" class="form-control" value="<%=type %>" id="type" name="type" />
-                                <input type="hidden" class="form-control" value="0" id="cate_id" name="cate_id">
+                                
                             </div>
                         </div>
                    
@@ -89,7 +89,7 @@
         function showModal() {
             $("#myModal").modal("show");
         }
-       
+
     </script>
 </asp:Content>
 

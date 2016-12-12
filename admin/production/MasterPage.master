@@ -79,7 +79,7 @@
                                 </li>
                                 <li><a><i class="fa fa-desktop"></i>Sản phẩm <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">Quản lý</a></li>
+                                        <li><a href="Products.aspx">Quản lý</a></li>
                                         <li><a href="#">Thêm mới</a></li>
                                     </ul>
                                 </li>
@@ -290,6 +290,7 @@
          $(document).ready(function () {
              $('table tbody tr  td').on('click', function () {
                  $("#myModal").modal("show");
+                 $("#cate_id").val($(this).closest('tr').children()[0].textContent);
                  $("#name").val($(this).closest('tr').children()[1].textContent);
                  $("#descr").val($(this).closest('tr').children()[2].textContent);
                  $("#sort").val($(this).closest('tr').children()[3].textContent);
